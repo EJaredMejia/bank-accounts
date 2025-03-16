@@ -1,13 +1,22 @@
 {
   "imports": {
-    "hono": "jsr:@hono/hono@^4.7.4"
+    "@libsql/client": "npm:@libsql/client@^0.14.0",
+    "dotenv": "npm:dotenv@^16.4.7",
+    "drizzle-kit": "npm:drizzle-kit@^0.30.5",
+    "drizzle-orm": "npm:drizzle-orm@^0.40.0",
+    "hono": "jsr:@hono/hono@^4.7.4",
+    "zod": "npm:zod@^3.24.2"
   },
   "tasks": {
-    "start": "deno run --allow-net src/main.ts",
-    "test": "deno test",
-    "test:coverage": "deno test --coverage && deno coverage --detailed",
+    "start": "deno run --env-file=.env -A src/main.ts",
+    "test": "deno test --env-file=.env -A",
+    "test:coverage": "deno test --coverage --env-file=.env -A && deno coverage --detailed",
     "lint": "deno lint",
-    "format": "deno fmt"
+    "format": "deno fmt",
+    "dev": "deno run -A --env-file=.env --watch src/main.ts",
+    "db:generate": "deno run -A --node-modules-dir npm:drizzle-kit generate",
+    "db:migrate": "deno run -A --env-file=.env ./migrator/migrate.ts",
+    "db:seeders": "deno run -A --env-file=.env ./src/database/seeders/run.ts"
   },
   "compilerOptions": {
     "jsx": "precompile",
