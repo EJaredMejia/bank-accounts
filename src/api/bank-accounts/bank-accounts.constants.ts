@@ -1,0 +1,1 @@
+export const DEFAULT_BANK_ACCOUNT_BALANCE = 1000;
