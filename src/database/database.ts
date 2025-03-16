@@ -1,11 +1,15 @@
-import { drizzle } from 'drizzle-orm/libsql';
+import { Kysely } from "kysely";
+import { Database } from "./models/database.models.ts";
 
-import { createClient } from "npm:@libsql/client/node";
+import { Database as SqliteDatabase } from "jsr:@db/sqlite@0.11";
+import { DenoSqlite3Dialect } from "jsr:@soapbox/kysely-deno-sqlite";
 
-import * as schemas from "./models/database.schemas.ts";
+export { Database as Sqlite } from "jsr:@db/sqlite";
 
-const client = createClient({
-  url: Deno.env.get("DB_FILE_NAME")!,
+const dialect = new DenoSqlite3Dialect({
+  database: new SqliteDatabase(Deno.env.get("DB_FILE_NAME") || ":memory:"),
 });
 
-export const db = drizzle({ client, schema: { ...schemas } });
+export const db = new Kysely<Database>({
+  dialect,
+});

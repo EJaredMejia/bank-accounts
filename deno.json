@@ -1,22 +1,22 @@
 {
   "imports": {
-    "@libsql/client": "npm:@libsql/client@^0.14.0",
-    "dotenv": "npm:dotenv@^16.4.7",
-    "drizzle-kit": "npm:drizzle-kit@^0.30.5",
-    "drizzle-orm": "npm:drizzle-orm@^0.40.0",
+    "@db/sqlite": "jsr:@db/sqlite@^0.12.0",
+    "@soapbox/kysely-deno-sqlite": "jsr:@soapbox/kysely-deno-sqlite@^2.2.0",
+    "@std/path": "jsr:@std/path@^1.0.8",
     "hono": "jsr:@hono/hono@^4.7.4",
+    "kysely": "npm:kysely@^0.27.6",
+    "kysely-ctl": "npm:kysely-ctl@^0.12.1",
     "zod": "npm:zod@^3.24.2"
   },
   "tasks": {
     "start": "deno run --env-file=.env -A src/main.ts",
-    "test": "deno test --env-file=mock-env.env -A",
-    "test:coverage": "deno test --coverage --env-file=mock-env.env -A && deno coverage --detailed",
+    "test": "deno test -A",
+    "test:coverage": "deno test --coverage -A && deno coverage --detailed",
     "lint": "deno lint",
     "format": "deno fmt",
     "dev": "deno run -A --env-file=.env --watch src/main.ts",
-    "db:generate": "deno run -A --node-modules-dir npm:drizzle-kit generate",
-    "db:migrate": "deno run -A --env-file=.env ./migrator/migrate.ts",
-    "db:seeders": "deno run -A --env-file=.env ./src/database/seeders/run.ts"
+    "db:migrate": "deno run -A --env-file=.env ./database/migrations/init.ts",
+    "db:seed": "deno run -A --env-file=.env ./database/seeders/run.ts"
   },
   "compilerOptions": {
     "jsx": "precompile",
