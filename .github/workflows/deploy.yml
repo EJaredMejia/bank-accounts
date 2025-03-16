@@ -38,7 +38,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "jaredmejia-bank-accoun-28"
-          entrypoint: "main.ts"
-          root: ""
+          entrypoint: "dist/main.js"
+          root: "."
           
           
