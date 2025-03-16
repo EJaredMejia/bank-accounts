@@ -9,8 +9,8 @@
   },
   "tasks": {
     "start": "deno run --env-file=.env -A src/main.ts",
-    "test": "deno test --env-file=.env -A",
-    "test:coverage": "deno test --coverage --env-file=.env -A && deno coverage --detailed",
+    "test": "deno test --env-file=mock-env.env -A",
+    "test:coverage": "deno test --coverage --env-file=mock-env.env -A && deno coverage --detailed",
     "lint": "deno lint",
     "format": "deno fmt",
     "dev": "deno run -A --env-file=.env --watch src/main.ts",
