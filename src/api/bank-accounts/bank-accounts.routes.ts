@@ -7,7 +7,6 @@ import {
 } from "./bank-accounts.service.ts";
 
 const banksRouter = new Hono()
-
   .basePath("/bank-accounts")
   .get(
     "/:accountNumber",
@@ -18,7 +17,7 @@ const banksRouter = new Hono()
       return c.json({
         data: response,
       });
-    }
+    },
   )
   .post("/", async (c) => {
     const response = await createBankAccount();
