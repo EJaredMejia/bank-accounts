@@ -1,9 +1,8 @@
-import { Hono } from 'hono'
+import { Hono } from "hono";
+import { addRoutes } from "./routes.ts";
 
-const app = new Hono()
+const app = new Hono();
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+addRoutes(app);
 
-Deno.serve(app.fetch)
+Deno.serve(app.fetch);

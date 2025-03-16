@@ -37,5 +37,3 @@ jobs:
           project: "jaredmejia-bank-accoun-28"
           entrypoint: "src/main.ts"
           root: "./"
-          
-          

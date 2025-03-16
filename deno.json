@@ -3,7 +3,11 @@
     "hono": "jsr:@hono/hono@^4.7.4"
   },
   "tasks": {
-    "start": "deno run --allow-net main.ts"
+    "start": "deno run --allow-net main.ts",
+    "test": "deno test",
+    "test:coverage": "deno test --coverage && deno coverage --detailed",
+    "lint": "deno lint",
+    "format": "deno fmt"
   },
   "compilerOptions": {
     "jsx": "precompile",
