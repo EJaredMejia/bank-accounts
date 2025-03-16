@@ -1,7 +1,12 @@
 import { Kysely } from "kysely";
 import { Database } from "./models/database.models.ts";
 
-import { createClient } from "@libsql/client/node";
+const dbName = Deno.env.get("DB_FILE_NAME");
+
+const { createClient } = dbName?.includes("file")
+  ? await import("@libsql/client/node")
+  : await import("@libsql/client/web");
+
 import { LibsqlDialect } from "@libsql/kysely-libsql";
 
 const client = createClient({
