@@ -1,7 +1,6 @@
 # REST API
 
-This is a bank accounts api.
-API URL: https://bank-accounts.deno.dev
+This is a bank accounts api. API URL: https://bank-accounts.deno.dev
 
 # API DOCS
 
