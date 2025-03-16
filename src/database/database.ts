@@ -1,13 +1,17 @@
 import { Kysely } from "kysely";
 import { Database } from "./models/database.models.ts";
 
-import { Database as SqliteDatabase } from "@db/sqlite";
-import { DenoSqlite3Dialect } from "@soapbox/kysely-deno-sqlite";
+import { createClient } from "@libsql/client/node";
+import { LibsqlDialect } from "@libsql/kysely-libsql";
 
-export { Database as Sqlite } from "@db/sqlite";
+const client = createClient({
+  url: Deno.env.get("DB_FILE_NAME") || ":memory:",
+  authToken: Deno.env.get("DB_AUTH_TOKEN"),
+});
 
-const dialect = new DenoSqlite3Dialect({
-  database: new SqliteDatabase(Deno.env.get("DB_FILE_NAME") || ":memory:"),
+const dialect = new LibsqlDialect({
+  // @ts-expect-error works correctly
+  client,
 });
 
 export const db = new Kysely<Database>({
