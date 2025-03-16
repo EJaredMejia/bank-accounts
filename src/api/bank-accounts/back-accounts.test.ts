@@ -6,21 +6,38 @@ import { banksRouter } from "./bank-accounts.routes.ts";
 import "../../../database/migrations/init.ts";
 
 describe("bank accounts", () => {
-  it("Should return the correct json", async () => {
-    const app = banksRouter;
-    const res = await testClient(app)["bank-accounts"].$get();
+  const app = banksRouter;
+  it("Should return the bank account", async () => {
+    const res = await testClient(app)["bank-accounts"].$post();
+    const newBankAccount = await res.json();
 
-    expect(await res.json()).toEqual({
-      data: "hello from bank accounts",
+    const getResponse = await testClient(app)["bank-accounts"][
+      ":accountNumber"
+    ].$get({
+      param: {
+        accountNumber: newBankAccount.data.number_account,
+      },
     });
+
+    expect(newBankAccount).toEqual(await getResponse.json());
+  });
+  it("should return 404 on not found number account", async () => {
+    const getResponse = await testClient(app)["bank-accounts"][
+      ":accountNumber"
+    ].$get({
+      param: {
+        accountNumber: "123",
+      },
+    });
+
+    expect(await getResponse.text()).toBe("Bank account not found");
   });
   it("Should return the new bank account", async () => {
-    const app = banksRouter;
     const res = await testClient(app)["bank-accounts"].$post();
     const json = await res.json();
     expect(json.data.balance).toEqual(DEFAULT_BANK_ACCOUNT_BALANCE);
 
-    expect(json.data.id).toBe(1);
+    expect(typeof json.data.id).toBe("number");
     expect(typeof json.data.number_account).toBe("string");
   });
 });

@@ -1,9 +1,10 @@
 {
   "imports": {
+    "@hono/zod-validator": "npm:@hono/zod-validator@^0.4.3",
     "@libsql/client": "npm:@libsql/client@^0.14.0",
     "@libsql/kysely-libsql": "npm:@libsql/kysely-libsql@^0.4.1",
     "@std/path": "jsr:@std/path@^1.0.8",
-    "hono": "jsr:@hono/hono@^4.7.4",
+    "hono": "npm:hono@^4.7.4",
     "kysely": "npm:kysely@^0.27.6",
     "kysely-ctl": "npm:kysely-ctl@^0.12.1",
     "zod": "npm:zod@^3.24.2"

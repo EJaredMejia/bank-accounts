@@ -2,11 +2,6 @@
 
 This is a bank accounts api. API URL: https://bank-accounts.deno.dev
 
-# API DOCS
-
-Api docs are found in the next GET endpoint:
-[swagger docs](https://bank-accounts.deno.dev/docs)
-
 # Prerequisites
 
 - Have installed deno if not see
@@ -24,6 +19,10 @@ Api docs are found in the next GET endpoint:
 
     deno task test
 
-# REST API
+## Run test coverage
 
-The REST API to the example app is described below.
+    deno task test:coverage
+
+# API DOCS
+
+// TODO DOCS
