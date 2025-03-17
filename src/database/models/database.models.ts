@@ -9,6 +9,7 @@ export interface BankAccountTable {
 export interface TransactionTable {
   id: Generated<number>;
   balance_after_transaction: number;
+  amount: number;
   bank_account_id: number;
   transaction_type_id: number;
 }

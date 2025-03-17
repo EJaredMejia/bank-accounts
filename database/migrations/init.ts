@@ -14,6 +14,7 @@ export async function up() {
     .ifNotExists()
     .addColumn("id", "integer", (col) => col.primaryKey().autoIncrement())
     .addColumn("balance_after_transaction", "real", (col) => col.notNull())
+    .addColumn("amount", "real", (col) => col.notNull())
     .addColumn(
       "bank_account_id",
       "integer",
