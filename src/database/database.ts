@@ -1,11 +1,12 @@
-import { Kysely } from "kysely";
+import { Kysely, ParseJSONResultsPlugin } from "kysely";
 import { Database } from "./models/database.models.ts";
 
-const dbName = Deno.env.get("DB_FILE_NAME") || ":memory:";
+const dbName = Deno.env.get("DB_FILE_NAME")!;
 
-const { createClient } = dbName?.includes("file") || dbName?.includes("memory")
-  ? await import("@libsql/client/node")
-  : await import("@libsql/client/web");
+const { createClient } =
+  dbName?.includes("file") || dbName?.includes("memory")
+    ? await import("@libsql/client/node")
+    : await import("@libsql/client/web");
 
 import { LibsqlDialect } from "@libsql/kysely-libsql";
 
@@ -21,4 +22,5 @@ const dialect = new LibsqlDialect({
 
 export const db = new Kysely<Database>({
   dialect,
+  plugins: [new ParseJSONResultsPlugin()],
 });

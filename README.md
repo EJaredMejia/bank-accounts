@@ -107,7 +107,7 @@ curl --location 'https://bank-accounts.deno.dev/transactions/withdrawal' \
 --header 'Content-Type: application/json' \
 --data '{
     "amount": 100,
-    "accountNumber": "1742170970504"
+    "accountNumber": "1742169583527"
 }'
 ```
 

@@ -6,3 +6,7 @@ export const depositTransactionSchema = z.object({
 });
 
 export const withdrawalTransactionSchema = depositTransactionSchema;
+
+export const getTransactionByAccountSchema = depositTransactionSchema.pick({
+  accountNumber: true,
+});

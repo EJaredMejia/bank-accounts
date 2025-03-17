@@ -6,6 +6,7 @@ import { getBankAccountByNumber } from "../bank-accounts/bank-accounts.service.t
 import { db } from "../../database/database.ts";
 import { withdrawalTransactionSchema } from "./transactions.schemas.ts";
 import { HTTPException } from "hono/http-exception";
+import { jsonBuildObject } from "kysely/helpers/sqlite";
 
 export async function depositTransaction(
   data: z.infer<typeof depositTransactionSchema>
@@ -20,6 +21,7 @@ export async function depositTransaction(
     newBalance,
     bankAccountId: bankAccount.id,
     transactionTypeId: transactionType.id,
+    amount: data.amount,
   });
 }
 
@@ -41,17 +43,49 @@ export async function withdrawalTransaction(
     newBalance,
     bankAccountId: bankAccount.id,
     transactionTypeId: transactionType.id,
+    amount: data.amount,
   });
+}
+
+export async function getTransactionByAccount(accountNumber: string) {
+  const bankAccount = await getBankAccountByNumber(accountNumber);
+
+  const transactions = await db
+    .selectFrom("transaction")
+    .where("bank_account_id", "=", bankAccount.id)
+    .innerJoin(
+      "transaction_type",
+      "transaction_type.id",
+      "transaction.transaction_type_id"
+    )
+    .select(({ ref }) => [
+      "transaction.id",
+      "transaction.amount",
+      "transaction.balance_after_transaction",
+      "transaction.bank_account_id",
+      jsonBuildObject({
+        id: ref("transaction_type.id"),
+        name: ref("transaction_type.name"),
+      }).as("transactionType"),
+    ])
+    .execute();
+
+  return {
+    bankAccount,
+    transactions,
+  };
 }
 
 async function updateBalance({
   bankAccountId,
   newBalance,
   transactionTypeId,
+  amount,
 }: {
   newBalance: number;
   bankAccountId: number;
   transactionTypeId: number;
+  amount: number;
 }) {
   const transaction = db.transaction();
   const [updatedBankAccount] = await transaction.execute(async (tx) => {
@@ -70,6 +104,7 @@ async function updateBalance({
           balance_after_transaction: newBalance,
           transaction_type_id: transactionTypeId,
           bank_account_id: bankAccountId,
+          amount,
         })
         .execute(),
     ]);

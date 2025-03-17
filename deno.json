@@ -11,8 +11,8 @@
   },
   "tasks": {
     "start": "deno run --env-file=.env -A src/main.ts",
-    "test": "deno test -A",
-    "test:coverage": "deno test --coverage -A && deno coverage --detailed",
+    "test": "DB_FILE_NAME='file:./bank-accounts.db' deno test -A ",
+    "test:coverage": "DB_FILE_NAME='file:./bank-accounts.db' deno test --coverage -A  && deno coverage --detailed",
     "lint": "deno lint",
     "format": "deno fmt",
     "dev": "deno run -A --env-file=.env --watch src/main.ts",

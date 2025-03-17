@@ -3,7 +3,7 @@ import { expect } from "jsr:@std/expect";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { DEFAULT_BANK_ACCOUNT_BALANCE } from "./bank-accounts.constants.ts";
 import { banksRouter } from "./bank-accounts.routes.ts";
-import "../../../database/migrations/init.ts";
+import "./../../../database/migrations/init.ts";
 
 describe("bank accounts", () => {
   const app = banksRouter;

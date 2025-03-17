@@ -18,6 +18,7 @@ app.onError(async (err, c) => {
     );
   }
 
+  console.error(err);
   return c.json({
     message: "Internal server error",
   });
