@@ -38,18 +38,20 @@ This is a bank accounts api. API URL: https://bank-accounts.deno.dev
 #### Request
 
 `GET /bank-accounts/:accountNumber`
+
 ```bash
 curl --location 'https://bank-accounts.deno.dev/bank-accounts/1742164515550'
 ```
 
 #### Response
+
 ```json
 {
-    "data": {
-        "id": 4,
-        "number_account": "1742164515550",
-        "balance": 1000
-    }
+  "data": {
+    "id": 4,
+    "number_account": "1742164515550",
+    "balance": 1000
+  }
 }
 ```
 
@@ -58,25 +60,29 @@ curl --location 'https://bank-accounts.deno.dev/bank-accounts/1742164515550'
 #### Request
 
 `POST /bank-accounts`
+
 ```bash
 curl --location --request POST 'https://bank-accounts.deno.dev/bank-accounts'
 ```
 
 #### Response
+
 ```json
 {
-    "data": {
-        "id": 5,
-        "number_account": "1742169583527",
-        "balance": 1000
-    }
+  "data": {
+    "id": 5,
+    "number_account": "1742169583527",
+    "balance": 1000
+  }
 }
 ```
+
 ### Deposit transaction
 
 #### Request
 
 `POST /transactions/deposit`
+
 ```bash
 curl --location 'https://bank-accounts.deno.dev/transactions/deposit' \
 --header 'Content-Type: application/json' \
@@ -87,13 +93,14 @@ curl --location 'https://bank-accounts.deno.dev/transactions/deposit' \
 ```
 
 #### Response
+
 ```json
 {
-    "data": {
-        "id": 5,
-        "number_account": "1742169583527",
-        "balance": 1100
-    }
+  "data": {
+    "id": 5,
+    "number_account": "1742169583527",
+    "balance": 1100
+  }
 }
 ```
 
@@ -102,6 +109,7 @@ curl --location 'https://bank-accounts.deno.dev/transactions/deposit' \
 #### Request
 
 `POST /transactions/withdrawal`
+
 ```bash
 curl --location 'https://bank-accounts.deno.dev/transactions/withdrawal' \
 --header 'Content-Type: application/json' \
@@ -112,12 +120,60 @@ curl --location 'https://bank-accounts.deno.dev/transactions/withdrawal' \
 ```
 
 #### Response
+
 ```json
 {
-    "data": {
-        "id": 5,
-        "number_account": "1742169583527",
-        "balance": 1000
-    }
+  "data": {
+    "id": 5,
+    "number_account": "1742169583527",
+    "balance": 1000
+  }
+}
+```
+
+### Get Transactions by account number
+
+#### Request
+
+`GET /transactions/:accountNumber`
+
+```bash
+curl --location 'https://bank-accounts.deno.dev/transactions/1742164515550'
+```
+
+#### Response
+
+```json
+{
+  "data": {
+    "bankAccount": {
+      "id": 1,
+      "number_account": "1742174738469",
+      "balance": 800
+    },
+    "transactions": [
+      {
+        "id": 1,
+        "amount": 100,
+        "balance_after_transaction": 1100,
+        "bank_account_id": 1,
+        "transactionType": { "id": 2, "name": "deposit" }
+      },
+      {
+        "id": 2,
+        "amount": 100,
+        "balance_after_transaction": 1000,
+        "bank_account_id": 1,
+        "transactionType": { "id": 1, "name": "withdrawal" }
+      },
+      {
+        "id": 3,
+        "amount": 200,
+        "balance_after_transaction": 800,
+        "bank_account_id": 1,
+        "transactionType": { "id": 1, "name": "withdrawal" }
+      }
+    ]
+  }
 }
 ```
