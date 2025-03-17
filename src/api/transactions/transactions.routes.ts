@@ -29,20 +29,20 @@ const transactionsRouter = new Hono()
       return c.json({
         data: response,
       });
-    }
+    },
   )
   .get(
     "/:accountNumber",
     zValidator("param", getTransactionByAccountSchema),
     async (c) => {
       const response = await getTransactionByAccount(
-        c.req.valid("param").accountNumber
+        c.req.valid("param").accountNumber,
       );
 
       return c.json({
         data: response,
       });
-    }
+    },
   );
 
 export { transactionsRouter };

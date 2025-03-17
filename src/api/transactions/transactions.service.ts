@@ -9,7 +9,7 @@ import { HTTPException } from "hono/http-exception";
 import { jsonBuildObject } from "kysely/helpers/sqlite";
 
 export async function depositTransaction(
-  data: z.infer<typeof depositTransactionSchema>
+  data: z.infer<typeof depositTransactionSchema>,
 ) {
   const [transactionType, bankAccount] = await Promise.all([
     getTransactionType(TRANSACTION_TYPE.DEPOSIT),
@@ -26,7 +26,7 @@ export async function depositTransaction(
 }
 
 export async function withdrawalTransaction(
-  data: z.infer<typeof withdrawalTransactionSchema>
+  data: z.infer<typeof withdrawalTransactionSchema>,
 ) {
   const [transactionType, bankAccount] = await Promise.all([
     getTransactionType(TRANSACTION_TYPE.WITHDRAWL),
@@ -56,7 +56,7 @@ export async function getTransactionByAccount(accountNumber: string) {
     .innerJoin(
       "transaction_type",
       "transaction_type.id",
-      "transaction.transaction_type_id"
+      "transaction.transaction_type_id",
     )
     .select(({ ref }) => [
       "transaction.id",

@@ -15,11 +15,15 @@ export async function up() {
     .addColumn("id", "integer", (col) => col.primaryKey().autoIncrement())
     .addColumn("balance_after_transaction", "real", (col) => col.notNull())
     .addColumn("amount", "real", (col) => col.notNull())
-    .addColumn("bank_account_id", "integer", (col) =>
-      col.references("bank_account.id")
+    .addColumn(
+      "bank_account_id",
+      "integer",
+      (col) => col.references("bank_account.id"),
     )
-    .addColumn("transaction_type_id", "integer", (col) =>
-      col.references("transaction_type.id")
+    .addColumn(
+      "transaction_type_id",
+      "integer",
+      (col) => col.references("transaction_type.id"),
     )
     .execute();
 

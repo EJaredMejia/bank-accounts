@@ -14,7 +14,7 @@ app.onError(async (err, c) => {
       {
         message: await errorReponse.text(),
       },
-      { status: err.status }
+      { status: err.status },
     );
   }
 

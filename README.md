@@ -8,6 +8,7 @@ This is a bank accounts api. API URL: https://bank-accounts.deno.dev
   [how to install deno](https://docs.deno.com/runtime/getting_started/installation/)
 
 - create a .env with the next values:
+
 ```
 file:./bank-accounts.db
 ```

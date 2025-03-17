@@ -27,7 +27,7 @@ describe("transactions", () => {
     const { data } = await transactionResponse.json();
 
     expect(data.bankAccount.number_account).toBe(
-      bankAccount.data.number_account
+      bankAccount.data.number_account,
     );
 
     expect(data.transactions[0].amount).toBe(amountToAdd);
@@ -47,11 +47,11 @@ describe("transactions", () => {
 
     const updatedBankAccount = await res.json();
     expect(updatedBankAccount.data?.number_account).toBe(
-      bankAccount.data.number_account
+      bankAccount.data.number_account,
     );
 
     expect(updatedBankAccount.data?.balance).toBe(
-      bankAccount.data.balance + amount
+      bankAccount.data.balance + amount,
     );
   });
 
@@ -69,11 +69,11 @@ describe("transactions", () => {
 
     const updatedBankAccount = await res.json();
     expect(updatedBankAccount.data?.number_account).toBe(
-      bankAccount.data.number_account
+      bankAccount.data.number_account,
     );
 
     expect(updatedBankAccount.data?.balance).toBe(
-      bankAccount.data.balance - amount
+      bankAccount.data.balance - amount,
     );
   });
 
