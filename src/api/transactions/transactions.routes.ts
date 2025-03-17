@@ -1,16 +1,33 @@
 import { Hono } from "hono";
-import { depositTransaction } from "./transactions.service.ts";
+import {
+  depositTransaction,
+  withdrawalTransaction,
+} from "./transactions.service.ts";
 import { zValidator } from "@hono/zod-validator";
-import { depostiTransactionSchema } from "./transactions.schemas.ts";
+import {
+  depositTransactionSchema,
+  withdrawalTransactionSchema,
+} from "./transactions.schemas.ts";
 
 const transactionsRouter = new Hono()
   .basePath("/transactions")
-  .post("/deposit", zValidator("json", depostiTransactionSchema), async (c) => {
+  .post("/deposit", zValidator("json", depositTransactionSchema), async (c) => {
     const response = await depositTransaction(c.req.valid("json"));
 
     return c.json({
       data: response,
     });
-  });
+  })
+  .post(
+    "/withdrawal",
+    zValidator("json", withdrawalTransactionSchema),
+    async (c) => {
+      const response = await withdrawalTransaction(c.req.valid("json"));
+
+      return c.json({
+        data: response,
+      });
+    }
+  );
 
 export { transactionsRouter };

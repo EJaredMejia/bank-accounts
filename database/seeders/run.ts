@@ -1,6 +1,6 @@
 import { addTypeTransactions } from "./type-transaction.seeders.ts";
 
-async function runSeeders() {
+export async function runSeeders() {
   await addTypeTransactions();
 }
 

@@ -9,5 +9,6 @@ export async function addTypeTransactions() {
       },
       { name: "deposit" },
     ])
+    .onConflict((oc) => oc.column("name").doNothing())
     .execute();
 }

@@ -10,9 +10,12 @@ app.onError(async (err, c) => {
   if (err instanceof HTTPException) {
     const errorReponse = err.getResponse();
 
-    return c.json({
-      message: await errorReponse.text(),
-    });
+    return c.json(
+      {
+        message: await errorReponse.text(),
+      },
+      { status: err.status }
+    );
   }
 
   return c.json({
